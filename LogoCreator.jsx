@@ -119,11 +119,14 @@ export default function RandomLogoGenerator() {
           </div>
         </CardContent>
       </Card>
+
+      
       <div className="flex gap-2">
         <Button onClick={regenerate}>Generate New Logo</Button>
         <Button onClick={handleDownload}>Download Logo</Button>
         <Button onClick={saveTemplate}>Save Template</Button>
       </div>
+      
 
       {savedTemplates.length > 0 && (
         <div className="w-full mt-4">
