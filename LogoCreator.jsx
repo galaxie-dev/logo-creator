@@ -96,6 +96,7 @@ export default function RandomLogoGenerator() {
                   borderRight: "32px solid transparent",
                   borderBottom: "18px solid white",
                 }}>
+                
                 <div style={{
                   position: "absolute",
                   top: "18px",
