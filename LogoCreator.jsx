@@ -110,6 +110,7 @@ export default function RandomLogoGenerator() {
                 }} />
               </div>
             )}
+            
             {logo.shape === "star" && (
               <div className="text-white text-3xl mb-2">★</div>
             )}
