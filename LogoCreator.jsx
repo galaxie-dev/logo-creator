@@ -26,6 +26,7 @@ export default function RandomLogoGenerator() {
   const [customText, setCustomText] = useState("Logo");
   const [savedTemplates, setSavedTemplates] = useState([]);
   const logoRef = useRef(null);
+  
 
   function generateLogo() {
     return {
