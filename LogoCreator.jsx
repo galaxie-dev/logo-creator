@@ -134,6 +134,7 @@ export default function RandomLogoGenerator() {
                   style={{ backgroundImage: tpl.gradient, fontFamily: tpl.font }}
                 >
                   <IconComponent className="mr-2" /> {tpl.text}
+                  
                 </div>
               );
             })}
