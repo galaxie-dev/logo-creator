@@ -87,6 +87,7 @@ export default function RandomLogoGenerator() {
                   borderBottom: "64px solid white"
                 }} />
             )}
+            
             {logo.shape === "hexagon" && (
               <div className="w-0 h-0 mx-auto mb-2 relative"
                 style={{
