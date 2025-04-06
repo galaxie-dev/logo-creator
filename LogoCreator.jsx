@@ -56,6 +56,8 @@ export default function RandomLogoGenerator() {
     setSavedTemplates([...savedTemplates, logo]);
   }
 
+  const LogoIcon = logo.icon;
+
   return (
     <div className="flex flex-col items-center gap-4 p-4">
       <Input
@@ -108,7 +110,7 @@ export default function RandomLogoGenerator() {
             {logo.shape === "star" && (
               <div className="text-white text-3xl mb-2">★</div>
             )}
-            <logo.icon className="mx-auto mb-2 text-white" size={32} />
+            <LogoIcon className="mx-auto mb-2 text-white" size={32} />
             {customText}
           </div>
         </CardContent>
@@ -123,15 +125,18 @@ export default function RandomLogoGenerator() {
         <div className="w-full mt-4">
           <h3 className="text-lg font-semibold mb-2">Saved Templates</h3>
           <div className="grid grid-cols-2 gap-2">
-            {savedTemplates.map((tpl, index) => (
-              <div
-                key={index}
-                className="w-full h-32 flex items-center justify-center text-white rounded-xl"
-                style={{ backgroundImage: tpl.gradient, fontFamily: tpl.font }}
-              >
-                <tpl.icon className="mr-2" /> {tpl.text}
-              </div>
-            ))}
+            {savedTemplates.map((tpl, index) => {
+              const IconComponent = tpl.icon;
+              return (
+                <div
+                  key={index}
+                  className="w-full h-32 flex items-center justify-center text-white rounded-xl"
+                  style={{ backgroundImage: tpl.gradient, fontFamily: tpl.font }}
+                >
+                  <IconComponent className="mr-2" /> {tpl.text}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
