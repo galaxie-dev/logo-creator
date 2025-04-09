@@ -3,7 +3,6 @@ import html2canvas from "html2canvas";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-
 import { Star, Smile, Rocket, Heart, Camera } from "lucide-react";
 
 const randomGradients = [
