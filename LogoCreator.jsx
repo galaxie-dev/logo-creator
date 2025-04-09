@@ -81,6 +81,7 @@ export default function RandomLogoGenerator() {
             {logo.shape === "square" && <div className="w-16 h-16 bg-white mx-auto mb-2" />}
             {logo.shape === "triangle" && (
               <div className="w-0 h-0 mx-auto mb-2"
+                
                 style={{
                   borderLeft: "32px solid transparent",
                   borderRight: "32px solid transparent",
