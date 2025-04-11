@@ -3,117 +3,1180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swift | Visionary Logos</title>
+    <title>Swift | AI Logo Generator</title>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="style.css" rel="stylesheet">
+    <style>
+    :root {
+        --primary-purple: #8A2BE2;
+        --secondary-lavender: #E6E6FA;
+        --accent-teal: #20B2AA;
+        --dark-shade: #2E0854;
+        --light-shade: #F8F0FF;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: var(--light-shade);
+        color: var(--dark-shade);
+        padding: 2rem;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        background: linear-gradient(45deg, var(--primary-purple), var(--accent-teal));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        color: var(--dark-shade);
+        font-size: 1.2rem;
+        opacity: 0.8;
+    }
+
+    .generator-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+    }
+
+    .controls {
+        flex: 1;
+        min-width: 350px;
+        max-width: 450px;
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-preview-container {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .logo-preview {
+        width: 100%;
+        min-height: 300px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        background-color: white;
+    }
+
+    .logo-content {
+        text-align: center;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--dark-shade);
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: all 0.3s;
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: var(--primary-purple);
+        box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+    }
+
+    .btn {
+        background-color: var(--primary-purple);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .btn:hover {
+        background-color: #7B1FA2;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+        background-color: var(--secondary-lavender);
+        color: var(--dark-shade);
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .shape-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 1rem;
+    }
+
+    .shape-option {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        transition: all 0.2s;
+    }
+
+    .shape-option:hover {
+        transform: scale(1.1);
+        background-color: #e0e0e0;
+    }
+
+    .shape-option.selected {
+        background-color: var(--primary-purple);
+        color: white;
+    }
+
+    .shape {
+        margin: 0 auto 1rem;
+    }
+
+    .circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: white;
+    }
+
+    .square {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+    }
+
+    .triangle {
+        width: 0;
+        height: 0;
+        border-left: 40px solid transparent;
+        border-right: 40px solid transparent;
+        border-bottom: 80px solid white;
+    }
+
+    .hexagon {
+        width: 80px;
+        height: 46px;
+        background-color: white;
+        position: relative;
+    }
+
+    .hexagon:before,
+    .hexagon:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        border-left: 40px solid transparent;
+        border-right: 40px solid transparent;
+    }
+
+    .hexagon:before {
+        bottom: 100%;
+        border-bottom: 23px solid white;
+    }
+
+    .hexagon:after {
+        top: 100%;
+        border-top: 23px solid white;
+    }
+
+    .star {
+        font-size: 4rem;
+        color: white;
+        line-height: 1;
+    }
+
+    .icon {
+        margin: 0.5rem auto;
+        color: white;
+    }
+
+    .logo-text {
+        font-weight: bold;
+        color: white;
+        margin-top: 0.5rem;
+        word-break: break-word;
+    }
+
+    .templates-section {
+        margin-top: 2rem;
+    }
+
+    .templates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .template-item {
+        height: 120px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .template-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .template-text {
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+
+    .delete-template {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid rgba(138, 43, 226, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary-purple);
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .advanced-options {
+        margin-top: 1rem;
+        padding: 1rem;
+        background: rgba(138, 43, 226, 0.05);
+        border-radius: 8px;
+    }
+
+    .toggle-advanced {
+        background: none;
+        border: none;
+        color: var(--primary-purple);
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .ai-logos-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .ai-logo-item {
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .ai-logo-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .ai-logo-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .ai-logo-download {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.5rem;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .ai-logo-item:hover .ai-logo-download {
+        opacity: 1;
+    }
+
+    .color-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .color-option {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.2s;
+    }
+
+    .color-option:hover {
+        transform: scale(1.1);
+    }
+
+    .color-option.selected {
+        border-color: #333;
+        transform: scale(1.1);
+    }
+
+    .icon-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .icon-option {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .icon-option:hover {
+        background-color: #e0e0e0;
+        transform: scale(1.1);
+    }
+
+    .icon-option.selected {
+        background-color: var(--primary-purple);
+        color: white;
+    }
+
+    .font-options {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .font-option {
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #f0f0f0;
+        transition: all 0.2s;
+    }
+
+    .font-option:hover {
+        background-color: #e0e0e0;
+    }
+
+    .font-option.selected {
+        background-color: var(--primary-purple);
+        color: white;
+    }
+
+    .tab-container {
+        display: flex;
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 1rem;
+    }
+
+    .tab {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s;
+    }
+
+    .tab.active {
+        border-bottom-color: var(--primary-purple);
+        color: var(--primary-purple);
+        font-weight: bold;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Swift</h1>
-            <p class="subtitle">Visionary Logos</p>
+            <p class="subtitle">AI-Powered Logo Generator</p>
         </header>
         
         <div class="generator-section">
             <div class="controls">
-                <div class="form-group">
-                    <label for="logo-text">Logo Text</label>
-                    <input type="text" id="logo-text" value="Swift" placeholder="Enter your logo text">
+                <div class="tab-container">
+                    <div class="tab active" data-tab="manual">Manual Design</div>
+                    <div class="tab" data-tab="ai">AI Generator</div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="gradient-select">Color Scheme</label>
-                    <select id="gradient-select">
-                        <h3>Purple</h3>
-                        <option value="linear-gradient(135deg, #8A2BE2, #E6E6FA)">Purple Lavender</option>
-                        <option value="linear-gradient(135deg, #8A2BE2, #20B2AA)">Purple Teal</option>
-                        <option value="linear-gradient(135deg, #8A2BE2, #FF6B6B)">Purple Coral</option>
-                        <option value="linear-gradient(135deg, #8A2BE2, #FFD93D)">Purple Gold</option>
-                        <option value="linear-gradient(135deg, #8A2BE2, #6BCB77)">Purple Green</option>
-                        <option value="random">Random</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="shape-select">Shape</label>
-                    <select id="shape-select">
-                        <option value="circle">Circle</option>
-                        <option value="square">Square</option>
-                        <option value="triangle">Triangle</option>
-                        <option value="hexagon">Hexagon</option>
-                        <option value="star">Star</option>
-                        <option value="random">Random</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="icon-select">Icon</label>
-                    <select id="icon-select">
-                        <option value="star">Star</option>
-                        <option value="smile">Smile</option>
-                        <option value="rocket">Rocket</option>
-                        <option value="heart">Heart</option>
-                        <option value="camera">Camera</option>
-                        <option value="random">Random</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="font-select">Font</label>
-                    <select id="font-select">
-                        <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Modern</option>
-                        <option value="Georgia, 'Times New Roman', Times, serif">Serif</option>
-                        <option value="'Courier New', Courier, monospace">Monospace</option>
-                        <option value="'Brush Script MT', cursive">Cursive</option>
-                        <option value="Impact, Haettenschweiler, sans-serif">Bold</option>
-                        <option value="random">Random</option>
-                    </select>
-                </div>
-                
-                <button class="toggle-advanced">Advanced Options</button>
-                
-                <div class="advanced-options hidden">
+                <div class="tab-content active" id="manual-tab">
                     <div class="form-group">
-                        <label for="bg-opacity">Background Opacity</label>
-                        <input type="range" id="bg-opacity" min="0.1" max="1" step="0.1" value="1">
+                        <label for="logo-text">Logo Text (Optional)</label>
+                        <input type="text" id="logo-text" value="Swift" placeholder="Enter your logo text">
                     </div>
                     
                     <div class="form-group">
-                        <label for="text-size">Text Size</label>
-                        <input type="range" id="text-size" min="1" max="3" step="0.1" value="1.5">
+                        <label>Color Scheme</label>
+                        <select id="color-category">
+                            <option value="purple">Purple</option>
+                            <option value="blue">Blue</option>
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="black">Black & White</option>
+                            <option value="random">Random</option>
+                        </select>
+                        <div class="color-options" id="color-options">
+                            <!-- Colors will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Shapes</label>
+                        <div class="shape-container" id="shape-options">
+                            <!-- Shapes will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Icons</label>
+                        <div class="icon-options" id="icon-options">
+                            <!-- Icons will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Fonts</label>
+                        <div class="font-options" id="font-options">
+                            <!-- Fonts will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <button class="toggle-advanced">Advanced Options</button>
+                    
+                    <div class="advanced-options hidden">
+                        <div class="form-group">
+                            <label for="bg-opacity">Background Opacity</label>
+                            <input type="range" id="bg-opacity" min="0.1" max="1" step="0.1" value="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="text-size">Text Size</label>
+                            <input type="range" id="text-size" min="1" max="3" step="0.1" value="1.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="has-background">Background</label>
+                            <select id="has-background">
+                                <option value="true">With Background</option>
+                                <option value="false" selected>Transparent</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="generate-btn" class="btn">Generate Logo</button>
+                        <button id="download-btn" class="btn">Download</button>
+                        <button id="save-btn" class="btn btn-secondary">Save Template</button>
                     </div>
                 </div>
                 
-                <div class="btn-group">
-                    <button id="generate-btn" class="btn">Generate Logo</button>
-                    <button id="download-btn" class="btn">Download</button>
-                    <button id="save-btn" class="btn btn-secondary">Save Template</button>
+                <div class="tab-content" id="ai-tab">
+                    <div class="form-group">
+                        <label for="ai-prompt">Describe your logo</label>
+                        <textarea id="ai-prompt" placeholder="Example: A modern tech logo for a software company, minimalistic, blue and white, with a rocket icon"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ai-count">Number of logos to generate (1-10)</label>
+                        <input type="number" id="ai-count" min="1" max="10" value="4">
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button id="generate-ai-btn" class="btn">Generate AI Logos</button>
+                    </div>
+                    
+                    <div id="ai-results">
+                        <h3>AI Generated Logos</h3>
+                        <div class="ai-logos-container" id="ai-logos-container">
+                            <!-- AI generated logos will appear here -->
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="logo-preview" id="logo-preview">
-                <div class="logo-content">
-                    <div class="shape circle" id="shape-element"></div>
-                    <div class="icon" id="icon-element">
-                        <i data-lucide="star"></i>
+            <div class="logo-preview-container">
+                <div class="logo-preview" id="logo-preview">
+                    <div class="logo-content">
+                        <div class="shape circle" id="shape-element"></div>
+                        <div class="icon" id="icon-element">
+                            <i data-lucide="star"></i>
+                        </div>
+                        <div class="logo-text" id="logo-text-element">Swift</div>
                     </div>
-                    <div class="logo-text" id="logo-text-element">Swift</div>
+                    <div class="loading hidden" id="loading">
+                        <div class="spinner"></div>
+                    </div>
                 </div>
-                <div class="loading hidden" id="loading">
-                    <div class="spinner"></div>
+                
+                <div class="templates-section" id="templates-section">
+                    <h2>Saved Templates</h2>
+                    <div class="templates-grid" id="templates-grid"></div>
                 </div>
             </div>
         </div>
-        
-        <div class="templates-section" id="templates-section">
-            <h2>Saved Templates</h2>
-            <div class="templates-grid" id="templates-grid"></div>
-        </div>
     </div>
 
-    <script src="main.js">
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Lucide icons
+        lucide.createIcons();
         
+        // DOM elements
+        const logoPreview = document.getElementById('logo-preview');
+        const shapeElement = document.getElementById('shape-element');
+        const iconElement = document.getElementById('icon-element');
+        const logoTextElement = document.getElementById('logo-text-element');
+        const loadingElement = document.getElementById('loading');
+        const templatesGrid = document.getElementById('templates-grid');
+        const templatesSection = document.getElementById('templates-section');
+        const aiLogosContainer = document.getElementById('ai-logos-container');
+        
+        // Form elements
+        const logoTextInput = document.getElementById('logo-text');
+        const colorCategorySelect = document.getElementById('color-category');
+        const colorOptionsContainer = document.getElementById('color-options');
+        const shapeOptionsContainer = document.getElementById('shape-options');
+        const iconOptionsContainer = document.getElementById('icon-options');
+        const fontOptionsContainer = document.getElementById('font-options');
+        const bgOpacityInput = document.getElementById('bg-opacity');
+        const textSizeInput = document.getElementById('text-size');
+        const hasBackgroundSelect = document.getElementById('has-background');
+        const toggleAdvancedBtn = document.querySelector('.toggle-advanced');
+        const advancedOptions = document.querySelector('.advanced-options');
+        const aiPromptInput = document.getElementById('ai-prompt');
+        const aiCountInput = document.getElementById('ai-count');
+        
+        // Button elements
+        const generateBtn = document.getElementById('generate-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const saveBtn = document.getElementById('save-btn');
+        const generateAiBtn = document.getElementById('generate-ai-btn');
+        
+        // Tab elements
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        // Data
+        const colors = {
+            purple: [
+                { name: 'Purple Lavender', value: 'linear-gradient(135deg, #8A2BE2, #E6E6FA)' },
+                { name: 'Purple Teal', value: 'linear-gradient(135deg, #8A2BE2, #20B2AA)' },
+                { name: 'Purple Coral', value: 'linear-gradient(135deg, #8A2BE2, #FF6B6B)' },
+                { name: 'Purple Gold', value: 'linear-gradient(135deg, #8A2BE2, #FFD93D)' },
+                { name: 'Purple Green', value: 'linear-gradient(135deg, #8A2BE2, #6BCB77)' },
+                { name: 'Deep Purple', value: 'linear-gradient(135deg, #4B0082, #9370DB)' }
+            ],
+            blue: [
+                { name: 'Sky Blue', value: 'linear-gradient(135deg, #87CEEB, #FFFFFF)' },
+                { name: 'Navy Blue', value: 'linear-gradient(135deg, #000080, #4169E1)' },
+                { name: 'Ocean Blue', value: 'linear-gradient(135deg, #1E90FF, #00BFFF)' },
+                { name: 'Royal Blue', value: 'linear-gradient(135deg, #4169E1, #87CEFA)' },
+                { name: 'Blue Steel', value: 'linear-gradient(135deg, #4682B4, #B0C4DE)' },
+                { name: 'Midnight Blue', value: 'linear-gradient(135deg, #191970, #6A5ACD)' }
+            ],
+            red: [
+                { name: 'Crimson Red', value: 'linear-gradient(135deg, #DC143C, #FF6347)' },
+                { name: 'Scarlet Red', value: 'linear-gradient(135deg, #FF2400, #FF4500)' },
+                { name: 'Ruby Red', value: 'linear-gradient(135deg, #E0115F, #FF69B4)' },
+                { name: 'Burgundy', value: 'linear-gradient(135deg, #800020, #C04000)' },
+                { name: 'Cherry Red', value: 'linear-gradient(135deg, #D2042D, #FF7F7F)' },
+                { name: 'Fire Red', value: 'linear-gradient(135deg, #FF0000, #FF8C00)' }
+            ],
+            green: [
+                { name: 'Emerald Green', value: 'linear-gradient(135deg, #50C878, #98FB98)' },
+                { name: 'Forest Green', value: 'linear-gradient(135deg, #228B22, #32CD32)' },
+                { name: 'Mint Green', value: 'linear-gradient(135deg, #3EB489, #98FF98)' },
+                { name: 'Olive Green', value: 'linear-gradient(135deg, #556B2F, #6B8E23)' },
+                { name: 'Jade Green', value: 'linear-gradient(135deg, #00A86B, #7CFC00)' },
+                { name: 'Lime Green', value: 'linear-gradient(135deg, #32CD32, #ADFF2F)' }
+            ],
+            yellow: [
+                { name: 'Golden Yellow', value: 'linear-gradient(135deg, #FFD700, #FFFACD)' },
+                { name: 'Lemon Yellow', value: 'linear-gradient(135deg, #FFF44F, #FFFFFF)' },
+                { name: 'Amber', value: 'linear-gradient(135deg, #FFBF00, #FFD700)' },
+                { name: 'Mustard', value: 'linear-gradient(135deg, #FFDB58, #F4BB44)' },
+                { name: 'Sunflower', value: 'linear-gradient(135deg, #FFC40C, #FFDE7D)' },
+                { name: 'Gold', value: 'linear-gradient(135deg, #D4AF37, #F9D423)' }
+            ],
+            black: [
+                { name: 'Black & White', value: 'linear-gradient(135deg, #000000, #FFFFFF)' },
+                { name: 'Charcoal', value: 'linear-gradient(135deg, #36454F, #A9A9A9)' },
+                { name: 'Slate', value: 'linear-gradient(135deg, #708090, #C0C0C0)' },
+                { name: 'Graphite', value: 'linear-gradient(135deg, #2F4F4F, #778899)' },
+                { name: 'Onyx', value: 'linear-gradient(135deg, #0F0F0F, #696969)' },
+                { name: 'Silver', value: 'linear-gradient(135deg, #C0C0C0, #FFFFFF)' }
+            ]
+        };
+        
+        const shapes = [
+            'circle', 'square', 'triangle', 'hexagon', 'star', 
+            'diamond', 'oval', 'rectangle', 'pentagon', 'octagon',
+            'heart', 'cloud', 'burst', 'cross', 'ribbon',
+            'badge', 'shield', 'tag', 'mascot', 'abstract1',
+            'abstract2', 'abstract3', 'wave', 'polygon', 'rounded-square',
+            'speech-bubble', 'thought-bubble', 'infinity', 'arrow', 'bookmark'
+        ];
+        
+        const icons = [
+            'star', 'smile', 'rocket', 'heart', 'camera', 
+            'zap', 'palette', 'globe', 'code', 'music',
+            'shield', 'lock', 'key', 'bell', 'flag',
+            'gift', 'lightbulb', 'battery', 'cpu', 'database',
+            'filter', 'git-branch', 'hash', 'home', 'image',
+            'layers', 'link', 'mail', 'map-pin', 'mic',
+            'moon', 'package', 'phone', 'printer', 'send',
+            'settings', 'share-2', 'shopping-bag', 'tag', 'trash-2',
+            'trending-up', 'user', 'video', 'wifi', 'award',
+            'coffee', 'compass', 'dollar-sign', 'feather', 'leaf'
+        ];
+        
+        const fonts = [
+            { name: 'Modern (Segoe UI)', value: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" },
+            { name: 'Serif (Georgia)', value: "Georgia, 'Times New Roman', Times, serif" },
+            { name: 'Monospace (Courier)', value: "'Courier New', Courier, monospace" },
+            { name: 'Cursive (Brush Script)', value: "'Brush Script MT', cursive" },
+            { name: 'Bold (Impact)', value: "Impact, Haettenschweiler, sans-serif" },
+            { name: 'Futuristic (Arial Black)', value: "'Arial Black', Gadget, sans-serif" },
+            { name: 'Elegant (Garamond)', value: "Garamond, serif" },
+            { name: 'Techy (Consolas)', value: "Consolas, monospace" },
+            { name: 'Friendly (Comic Sans)', value: "'Comic Sans MS', cursive" },
+            { name: 'Minimalist (Helvetica)', value: "Helvetica, Arial, sans-serif" },
+            { name: 'Playful (Fredoka One)', value: "'Fredoka One', cursive" },
+            { name: 'Strong (Bebas Neue)', value: "'Bebas Neue', sans-serif" },
+            { name: 'Sophisticated (Playfair Display)', value: "'Playfair Display', serif" },
+            { name: 'Clean (Roboto)', value: "'Roboto', sans-serif" },
+            { name: 'Unique (Pacifico)', value: "'Pacifico', cursive" }
+        ];
+        
+        let savedTemplates = JSON.parse(localStorage.getItem('logo-templates')) || [];
+        let selectedColors = colors.purple;
+        let selectedGradient = colors.purple[0].value;
+        let selectedShape = 'circle';
+        let selectedIcon = 'star';
+        let selectedFont = fonts[0].value;
+        
+        // Initialize UI
+        function initUI() {
+            // Populate color options
+            updateColorOptions('purple');
+            
+            // Populate shape options
+            shapes.forEach(shape => {
+                const shapeOption = document.createElement('div');
+                shapeOption.className = `shape-option ${shape === 'circle' ? 'selected' : ''}`;
+                shapeOption.dataset.shape = shape;
+                shapeOption.innerHTML = getShapeIcon(shape);
+                shapeOption.addEventListener('click', () => selectShape(shape));
+                shapeOptionsContainer.appendChild(shapeOption);
+            });
+            
+            // Populate icon options
+            icons.forEach(icon => {
+                const iconOption = document.createElement('div');
+                iconOption.className = `icon-option ${icon === 'star' ? 'selected' : ''}`;
+                iconOption.dataset.icon = icon;
+                iconOption.innerHTML = `<i data-lucide="${icon}"></i>`;
+                iconOption.addEventListener('click', () => selectIcon(icon));
+                iconOptionsContainer.appendChild(iconOption);
+            });
+            
+            // Populate font options
+            fonts.forEach(font => {
+                const fontOption = document.createElement('div');
+                fontOption.className = `font-option ${font.value === fonts[0].value ? 'selected' : ''}`;
+                fontOption.dataset.font = font.value;
+                fontOption.style.fontFamily = font.value;
+                fontOption.textContent = font.name;
+                fontOption.addEventListener('click', () => selectFont(font.value));
+                fontOptionsContainer.appendChild(fontOption);
+            });
+            
+            // Initialize Lucide icons again after adding new ones
+            lucide.createIcons();
+        }
+        
+        // Update color options based on category
+        function updateColorOptions(category) {
+            colorOptionsContainer.innerHTML = '';
+            selectedColors = colors[category] || Object.values(colors).flat();
+            
+            selectedColors.forEach((color, index) => {
+                const colorOption = document.createElement('div');
+                colorOption.className = `color-option ${index === 0 ? 'selected' : ''}`;
+                colorOption.style.background = color.value;
+                colorOption.title = color.name;
+                colorOption.dataset.gradient = color.value;
+                colorOption.addEventListener('click', () => {
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                    colorOption.classList.add('selected');
+                    selectedGradient = color.value;
+                    updateLogoPreview();
+                });
+                colorOptionsContainer.appendChild(colorOption);
+            });
+            
+            if (category === 'random') {
+                selectedGradient = getRandomGradient();
+            } else if (selectedColors.length > 0) {
+                selectedGradient = selectedColors[0].value;
+            }
+        }
+        
+        // Get shape icon for display
+        function getShapeIcon(shape) {
+            switch(shape) {
+                case 'circle': return '○';
+                case 'square': return '□';
+                case 'triangle': return '△';
+                case 'hexagon': return '⬢';
+                case 'star': return '★';
+                case 'diamond': return '◆';
+                case 'oval': return '⬭';
+                case 'rectangle': return '▭';
+                case 'pentagon': return '⬠';
+                case 'octagon': return '⯄';
+                case 'heart': return '❤';
+                case 'cloud': return '☁';
+                case 'burst': return '✺';
+                case 'cross': return '✚';
+                case 'ribbon': return '✻';
+                case 'badge': return '❖';
+                case 'shield': return '⚔';
+                case 'tag': return '🏷';
+                case 'mascot': return 'ᗜ';
+                case 'abstract1': return '◈';
+                case 'abstract2': return '◉';
+                case 'abstract3': return '◌';
+                case 'wave': return '⌇';
+                case 'polygon': return '⬡';
+                case 'rounded-square': return '▢';
+                case 'speech-bubble': return '🗨';
+                case 'thought-bubble': return '🗭';
+                case 'infinity': return '∞';
+                case 'arrow': return '➔';
+                case 'bookmark': return '🔖';
+                default: return '◯';
+            }
+        }
+        
+        // Select shape
+        function selectShape(shape) {
+            selectedShape = shape;
+            document.querySelectorAll('.shape-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`.shape-option[data-shape="${shape}"]`).classList.add('selected');
+            updateLogoPreview();
+        }
+        
+        // Select icon
+        function selectIcon(icon) {
+            selectedIcon = icon;
+            document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`.icon-option[data-icon="${icon}"]`).classList.add('selected');
+            updateLogoPreview();
+        }
+        
+        // Select font
+        function selectFont(font) {
+            selectedFont = font;
+            document.querySelectorAll('.font-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`.font-option[data-font="${font}"]`).classList.add('selected');
+            updateLogoPreview();
+        }
+        
+        // Get random gradient
+        function getRandomGradient() {
+            const allGradients = Object.values(colors).flat();
+            return allGradients[Math.floor(Math.random() * allGradients.length)].value;
+        }
+        
+        // Generate random logo
+        function generateRandomLogo() {
+            const logoText = logoTextInput.value || '';
+            const gradient = colorCategorySelect.value === 'random' ? 
+                getRandomGradient() : 
+                selectedGradient;
+            
+            const shape = selectedShape;
+            const icon = selectedIcon;
+            const font = selectedFont;
+            const bgOpacity = parseFloat(bgOpacityInput.value);
+            const textSize = parseFloat(textSizeInput.value);
+            const hasBackground = hasBackgroundSelect.value === 'true';
+            
+            return {
+                text: logoText,
+                gradient,
+                shape,
+                icon,
+                font,
+                bgOpacity,
+                textSize,
+                hasBackground
+            };
+        }
+        
+        // Update logo preview
+        function updateLogoPreview() {
+            const logo = generateRandomLogo();
+            
+            // Update background
+            if (logo.hasBackground) {
+                logoPreview.style.backgroundImage = logo.gradient;
+            } else {
+                logoPreview.style.backgroundImage = 'none';
+                logoPreview.style.backgroundColor = 'transparent';
+            }
+            logoPreview.style.opacity = logo.bgOpacity;
+            
+            // Update shape
+            shapeElement.className = 'shape ' + logo.shape;
+            shapeElement.innerHTML = getShapeIcon(logo.shape);
+            
+            // Update icon
+            const iconSvg = document.querySelector('#icon-element svg');
+            if (iconSvg) {
+                iconSvg.remove();
+            }
+            const newIcon = document.createElement('i');
+            newIcon.setAttribute('data-lucide', logo.icon);
+            iconElement.innerHTML = '';
+            iconElement.appendChild(newIcon);
+            lucide.createIcons();
+            
+            // Update text
+            logoTextElement.textContent = logo.text;
+            logoTextElement.style.fontFamily = logo.font;
+            logoTextElement.style.fontSize = `${logo.textSize}rem`;
+        }
+        
+        // Generate button click
+        generateBtn.addEventListener('click', function() {
+            updateLogoPreview();
+        });
+        
+        // Save template
+        saveBtn.addEventListener('click', function() {
+            const currentLogo = {
+                text: logoTextInput.value || '',
+                gradient: selectedGradient,
+                shape: selectedShape,
+                icon: selectedIcon,
+                font: selectedFont,
+                bgOpacity: parseFloat(bgOpacityInput.value),
+                textSize: parseFloat(textSizeInput.value),
+                hasBackground: hasBackgroundSelect.value === 'true'
+            };
+            
+            savedTemplates.push(currentLogo);
+            localStorage.setItem('logo-templates', JSON.stringify(savedTemplates));
+            renderTemplates();
+            
+            // Show notification
+            alert('Template saved successfully!');
+        });
+        
+        // Download logo
+        downloadBtn.addEventListener('click', function() {
+            loadingElement.classList.remove('hidden');
+            
+            setTimeout(() => {
+                html2canvas(logoPreview, {
+                    backgroundColor: hasBackgroundSelect.value === 'true' ? null : 'transparent'
+                }).then(canvas => {
+                    const link = document.createElement('a');
+                    const logoText = logoTextInput.value || 'logo';
+                    link.download = `${logoText.toLowerCase().replace(/\s+/g, '-')}-logo.png`;
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                    loadingElement.classList.add('hidden');
+                });
+            }, 100);
+        });
+        
+        // Generate AI logos
+        generateAiBtn.addEventListener('click', async function() {
+            const prompt = aiPromptInput.value.trim();
+            const count = Math.min(Math.max(parseInt(aiCountInput.value), 1), 10);
+            
+            if (!prompt) {
+                alert('Please describe your logo idea');
+                return;
+            }
+            
+            loadingElement.classList.remove('hidden');
+            aiLogosContainer.innerHTML = '';
+            
+            try {
+                // This is a placeholder for Hugging Face API integration
+                // In a real implementation, you would call the Hugging Face API here
+                // For now, we'll simulate the response with placeholder images
+                
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Generate placeholder logos (in a real app, these would come from the API)
+                for (let i = 0; i < count; i++) {
+                    const logoItem = document.createElement('div');
+                    logoItem.className = 'ai-logo-item';
+                    
+                    // In a real implementation, this would be the URL from Hugging Face
+                    const logoUrl = `https://placehold.co/300x300/8A2BE2/FFFFFF/png?text=AI+Logo+${i+1}`;
+                    
+                    logoItem.innerHTML = `
+                        <img src="${logoUrl}" alt="AI Generated Logo ${i+1}">
+                        <div class="ai-logo-download">Click to Download</div>
+                    `;
+                    
+                    logoItem.addEventListener('click', () => {
+                        const link = document.createElement('a');
+                        link.download = `ai-logo-${i+1}.png`;
+                        link.href = logoUrl;
+                        link.click();
+                    });
+                    
+                    aiLogosContainer.appendChild(logoItem);
+                }
+            } catch (error) {
+                console.error('Error generating AI logos:', error);
+                alert('Failed to generate logos. Please try again.');
+            } finally {
+                loadingElement.classList.add('hidden');
+            }
+        });
+        
+        // Render saved templates
+        function renderTemplates() {
+            templatesGrid.innerHTML = '';
+            
+            if (savedTemplates.length === 0) {
+                templatesSection.style.display = 'none';
+                return;
+            }
+            
+            templatesSection.style.display = 'block';
+            
+            savedTemplates.forEach((template, index) => {
+                const templateItem = document.createElement('div');
+                templateItem.className = 'template-item';
+                templateItem.style.backgroundImage = template.gradient;
+                templateItem.style.opacity = template.bgOpacity || 1;
+                templateItem.style.fontFamily = template.font;
+                
+                const templateIcon = document.createElement('div');
+                templateIcon.innerHTML = `<i data-lucide="${template.icon}"></i>`;
+                
+                const templateText = document.createElement('div');
+                templateText.className = 'template-text';
+                templateText.textContent = template.text || 'Logo';
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-template';
+                deleteBtn.innerHTML = '×';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    savedTemplates.splice(index, 1);
+                    localStorage.setItem('logo-templates', JSON.stringify(savedTemplates));
+                    renderTemplates();
+                });
+                
+                templateItem.appendChild(templateIcon);
+                templateItem.appendChild(templateText);
+                templateItem.appendChild(deleteBtn);
+                templateItem.addEventListener('click', () => {
+                    // Apply the template
+                    logoTextInput.value = template.text;
+                    selectedGradient = template.gradient;
+                    selectedShape = template.shape;
+                    selectedIcon = template.icon;
+                    selectedFont = template.font;
+                    bgOpacityInput.value = template.bgOpacity;
+                    textSizeInput.value = template.textSize;
+                    hasBackgroundSelect.value = template.hasBackground ? 'true' : 'false';
+                    
+                    // Update UI
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.toggle('selected', opt.dataset.gradient === template.gradient);
+                    });
+                    
+                    document.querySelectorAll('.shape-option').forEach(opt => {
+                        opt.classList.toggle('selected', opt.dataset.shape === template.shape);
+                    });
+                    
+                    document.querySelectorAll('.icon-option').forEach(opt => {
+                        opt.classList.toggle('selected', opt.dataset.icon === template.icon);
+                    });
+                    
+                    document.querySelectorAll('.font-option').forEach(opt => {
+                        opt.classList.toggle('selected', opt.dataset.font === template.font);
+                    });
+                    
+                    updateLogoPreview();
+                });
+                
+                templatesGrid.appendChild(templateItem);
+            });
+            
+            lucide.createIcons();
+        }
+        
+        // Tab switching
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+        
+        // Color category change
+        colorCategorySelect.addEventListener('change', () => {
+            updateColorOptions(colorCategorySelect.value);
+            updateLogoPreview();
+        });
+        
+        // Advanced options toggle
+        toggleAdvancedBtn.addEventListener('click', function() {
+            advancedOptions.classList.toggle('hidden');
+            this.textContent = advancedOptions.classList.contains('hidden') ? 
+                'Advanced Options' : 'Hide Options';
+        });
+        
+        // Input changes
+        [logoTextInput, bgOpacityInput, textSizeInput, hasBackgroundSelect].forEach(input => {
+            input.addEventListener('input', updateLogoPreview);
+        });
+        
+        // Initial render
+        initUI();
+        updateLogoPreview();
+        renderTemplates();
+    });
     </script>
 </body>
 </html>
