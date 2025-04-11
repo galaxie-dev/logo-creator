@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swift Visionary Logos</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary-purple: #8A2BE2;
+            --secondary-lavender: #E6E6FA;
+            --accent-teal: #20B2AA;
+            --dark-shade: #2E0854;
+            --light-shade: #F8F0FF;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-shade);
+            color: var(--dark-shade);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--primary-purple), var(--accent-teal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            color: var(--dark-shade);
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .generator-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        
+        .controls {
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-preview {
+            width: 300px;
+            height: 300px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-content {
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-shade);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+        }
+        
+        .btn {
+            background-color: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            background-color: #7B1FA2;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary-lavender);
+            color: var(--dark-shade);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        
+        .shape {
+            margin: 0 auto 1rem;
+        }
+        
+        .circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: white;
+        }
+        
+        .square {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+        }
+        
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 80px solid white;
+        }
+        
+        .hexagon {
+            width: 80px;
+            height: 46px;
+            background-color: white;
+            position: relative;
+        }
+        
+        .hexagon:before,
+        .hexagon:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+        }
+        
+        .hexagon:before {
+            bottom: 100%;
+            border-bottom: 23px solid white;
+        }
+        
+        .hexagon:after {
+            top: 100%;
+            border-top: 23px solid white;
+        }
+        
+        .star {
+            font-size: 4rem;
+            color: white;
+            line-height: 1;
+        }
+        
+        .icon {
+            margin: 0.5rem auto;
+            color: white;
+        }
+        
+        .logo-text {
+            font-weight: bold;
+            color: white;
+            margin-top: 0.5rem;
+            word-break: break-word;
+        }
+        
+        .templates-section {
+            margin-top: 2rem;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .template-item {
+            height: 120px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .template-text {
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .delete-template {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(138, 43, 226, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-purple);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .advanced-options {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: rgba(138, 43, 226, 0.05);
+            border-radius: 8px;
+        }
+        
+        .toggle-advanced {
+            background: none;
+            border: none;
+            color: var(--primary-purple);
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Swift</h1>
+            <p class="subtitle">Visionary Logos</p>
+        </header>
+        
+        <div class="generator-section">
+            <div class="controls">
+                <div class="form-group">
+                    <label for="logo-text">Logo Text</label>
+                    <input type="text" id="logo-text" value="Swift" placeholder="Enter your logo text">
+                </div>
+                
+                <div class="form-group">
+                    <label for="gradient-select">Color Scheme</label>
+                    <select id="gradient-select">
+                        <option value="linear-gradient(135deg, #8A2BE2, #E6E6FA)">Purple Lavender</option>
+                        <option value="linear-gradient(135deg, #8A2BE2, #20B2AA)">Purple Teal</option>
+                        <option value="linear-gradient(135deg, #8A2BE2, #FF6B6B)">Purple Coral</option>
+                        <option value="linear-gradient(135deg, #8A2BE2, #FFD93D)">Purple Gold</option>
+                        <option value="linear-gradient(135deg, #8A2BE2, #6BCB77)">Purple Green</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="shape-select">Shape</label>
+                    <select id="shape-select">
+                        <option value="circle">Circle</option>
+                        <option value="square">Square</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="hexagon">Hexagon</option>
+                        <option value="star">Star</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="icon-select">Icon</label>
+                    <select id="icon-select">
+                        <option value="star">Star</option>
+                        <option value="smile">Smile</option>
+                        <option value="rocket">Rocket</option>
+                        <option value="heart">Heart</option>
+                        <option value="camera">Camera</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="font-select">Font</label>
+                    <select id="font-select">
+                        <option value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Modern</option>
+                        <option value="Georgia, 'Times New Roman', Times, serif">Serif</option>
+                        <option value="'Courier New', Courier, monospace">Monospace</option>
+                        <option value="'Brush Script MT', cursive">Cursive</option>
+                        <option value="Impact, Haettenschweiler, sans-serif">Bold</option>
+                        <option value="random">Random</option>
+                    </select>
+                </div>
+                
+                <button class="toggle-advanced">Advanced Options</button>
+                
+                <div class="advanced-options hidden">
+                    <div class="form-group">
+                        <label for="bg-opacity">Background Opacity</label>
+                        <input type="range" id="bg-opacity" min="0.1" max="1" step="0.1" value="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="text-size">Text Size</label>
+                        <input type="range" id="text-size" min="1" max="3" step="0.1" value="1.5">
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button id="generate-btn" class="btn">Generate Logo</button>
+                    <button id="download-btn" class="btn">Download</button>
+                    <button id="save-btn" class="btn btn-secondary">Save Template</button>
+                </div>
+            </div>
+            
+            <div class="logo-preview" id="logo-preview">
+                <div class="logo-content">
+                    <div class="shape circle" id="shape-element"></div>
+                    <div class="icon" id="icon-element">
+                        <i data-lucide="star"></i>
+                    </div>
+                    <div class="logo-text" id="logo-text-element">Swift</div>
+                </div>
+                <div class="loading hidden" id="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="templates-section" id="templates-section">
+            <h2>Saved Templates</h2>
+            <div class="templates-grid" id="templates-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // DOM elements
+            const logoPreview = document.getElementById('logo-preview');
+            const shapeElement = document.getElementById('shape-element');
+            const iconElement = document.getElementById('icon-element');
+            const logoTextElement = document.getElementById('logo-text-element');
+            const loadingElement = document.getElementById('loading');
+            const templatesGrid = document.getElementById('templates-grid');
+            const templatesSection = document.getElementById('templates-section');
+            
+            // Form elements
+            const logoTextInput = document.getElementById('logo-text');
+            const gradientSelect = document.getElementById('gradient-select');
+            const shapeSelect = document.getElementById('shape-select');
+            const iconSelect = document.getElementById('icon-select');
+            const fontSelect = document.getElementById('font-select');
+            const bgOpacityInput = document.getElementById('bg-opacity');
+            const textSizeInput = document.getElementById('text-size');
+            const toggleAdvancedBtn = document.querySelector('.toggle-advanced');
+            const advancedOptions = document.querySelector('.advanced-options');
+            
+            // Button elements
+            const generateBtn = document.getElementById('generate-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const saveBtn = document.getElementById('save-btn');
+            
+            // Data
+            const gradients = [
+                'linear-gradient(135deg, #8A2BE2, #E6E6FA)',
+                'linear-gradient(135deg, #8A2BE2, #20B2AA)',
+                'linear-gradient(135deg, #8A2BE2, #FF6B6B)',
+                'linear-gradient(135deg, #8A2BE2, #FFD93D)',
+                'linear-gradient(135deg, #8A2BE2, #6BCB77)',
+                'linear-gradient(135deg, #FF6B6B, #FFD93D)',
+                'linear-gradient(135deg, #6BCB77, #4D96FF)',
+                'linear-gradient(135deg, #F46036, #8D6AFF)',
+                'linear-gradient(135deg, #00B8D9, #9D4EDD)',
+                'linear-gradient(135deg, #43AA8B, #F25F5C)'
+            ];
+            
+            const shapes = ['circle', 'square', 'triangle', 'hexagon', 'star'];
+            const fonts = [
+                "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+                "Georgia, 'Times New Roman', Times, serif",
+                "'Courier New', Courier, monospace",
+                "'Brush Script MT', cursive",
+                "Impact, Haettenschweiler, sans-serif"
+            ];
+            
+            const icons = ['star', 'smile', 'rocket', 'heart', 'camera', 'zap', 'palette', 'globe', 'code', 'music'];
+            
+            let savedTemplates = JSON.parse(localStorage.getItem('logo-templates')) || [];
+            
+            // Toggle advanced options
+            toggleAdvancedBtn.addEventListener('click', function() {
+                advancedOptions.classList.toggle('hidden');
+                this.textContent = advancedOptions.classList.contains('hidden') ? 
+                    'Advanced Options' : 'Hide Options';
+            });
+            
+            // Generate random logo
+            function generateRandomLogo() {
+                const logoText = logoTextInput.value || 'Swift';
+                const gradient = gradientSelect.value === 'random' ? 
+                    gradients[Math.floor(Math.random() * gradients.length)] : 
+                    gradientSelect.value;
+                
+                const shape = shapeSelect.value === 'random' ? 
+                    shapes[Math.floor(Math.random() * shapes.length)] : 
+                    shapeSelect.value;
+                
+                const icon = iconSelect.value === 'random' ? 
+                    icons[Math.floor(Math.random() * icons.length)] : 
+                    iconSelect.value;
+                
+                const font = fontSelect.value === 'random' ? 
+                    fonts[Math.floor(Math.random() * fonts.length)] : 
+                    fontSelect.value;
+                
+                const bgOpacity = parseFloat(bgOpacityInput.value);
+                const textSize = parseFloat(textSizeInput.value);
+                
+                return {
+                    text: logoText,
+                    gradient,
+                    shape,
+                    icon,
+                    font,
+                    bgOpacity,
+                    textSize
+                };
+            }
+            
+            // Update logo preview
+            function updateLogo(logo) {
+                // Update background
+                logoPreview.style.backgroundImage = logo.gradient;
+                logoPreview.style.opacity = logo.bgOpacity;
+                
+                // Update shape
+                shapeElement.className = 'shape ' + logo.shape;
+                
+                // Update icon
+                const iconSvg = document.querySelector('#icon-element svg');
+                if (iconSvg) {
+                    iconSvg.remove();
+                }
+                const newIcon = document.createElement('i');
+                newIcon.setAttribute('data-lucide', logo.icon);
+                iconElement.appendChild(newIcon);
+                lucide.createIcons();
+                
+                // Update text
+                logoTextElement.textContent = logo.text;
+                logoTextElement.style.fontFamily = logo.font;
+                logoTextElement.style.fontSize = `${logo.textSize}rem`;
+            }
+            
+            // Generate button click
+            generateBtn.addEventListener('click', function() {
+                const newLogo = generateRandomLogo();
+                updateLogo(newLogo);
+            });
+            
+            // Save template
+            saveBtn.addEventListener('click', function() {
+                const currentLogo = {
+                    text: logoTextInput.value || 'Swift',
+                    gradient: logoPreview.style.backgroundImage,
+                    shape: shapeSelect.value === 'random' ? 
+                        shapes[Math.floor(Math.random() * shapes.length)] : 
+                        shapeSelect.value,
+                    icon: iconSelect.value === 'random' ? 
+                        icons[Math.floor(Math.random() * icons.length)] : 
+                        iconSelect.value,
+                    font: fontSelect.value === 'random' ? 
+                        fonts[Math.floor(Math.random() * fonts.length)] : 
+                        fontSelect.value,
+                    bgOpacity: parseFloat(bgOpacityInput.value),
+                    textSize: parseFloat(textSizeInput.value)
+                };
+                
+                savedTemplates.push(currentLogo);
+                localStorage.setItem('logo-templates', JSON.stringify(savedTemplates));
+                renderTemplates();
+                
+                // Show notification
+                alert('Template saved successfully!');
+            });
+            
+            // Download logo
+            downloadBtn.addEventListener('click', function() {
+                loadingElement.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    html2canvas(logoPreview).then(canvas => {
+                        const link = document.createElement('a');
+                        const logoText = logoTextInput.value || 'logo';
+                        link.download = `${logoText.toLowerCase().replace(/\s+/g, '-')}-logo.png`;
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                        loadingElement.classList.add('hidden');
+                    });
+                }, 100);
+            });
+            
+            // Render saved templates
+            function renderTemplates() {
+                templatesGrid.innerHTML = '';
+                
+                if (savedTemplates.length === 0) {
+                    templatesSection.style.display = 'none';
+                    return;
+                }
+                
+                templatesSection.style.display = 'block';
+                
+                savedTemplates.forEach((template, index) => {
+                    const templateItem = document.createElement('div');
+                    templateItem.className = 'template-item';
+                    templateItem.style.backgroundImage = template.gradient;
+                    templateItem.style.opacity = template.bgOpacity || 1;
+                    templateItem.style.fontFamily = template.font;
+                    
+                    const templateIcon = document.createElement('div');
+                    templateIcon.innerHTML = `<i data-lucide="${template.icon}"></i>`;
+                    
+                    const templateText = document.createElement('div');
+                    templateText.className = 'template-text';
+                    templateText.textContent = template.text;
+                    
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'delete-template';
+                    deleteBtn.innerHTML = '×';
+                    deleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        savedTemplates.splice(index, 1);
+                        localStorage.setItem('logo-templates', JSON.stringify(savedTemplates));
+                        renderTemplates();
+                    });
+                    
+                    templateItem.appendChild(templateIcon);
+                    templateItem.appendChild(templateText);
+                    templateItem.appendChild(deleteBtn);
+                    templateItem.addEventListener('click', () => {
+                        updateLogo(template);
+                        logoTextInput.value = template.text;
+                    });
+                    
+                    templatesGrid.appendChild(templateItem);
+                });
+                
+                lucide.createIcons();
+            }
+            
+            // Initial render
+            updateLogo(generateRandomLogo());
+            renderTemplates();
+        });
+    </script>
+</body>
+</html>
